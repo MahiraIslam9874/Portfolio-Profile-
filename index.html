@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Máhî.dev - Portfolio</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<style>
+/* CSS Variables for easy theme switching */
+:root {
+    --primary-color: #3498db;
+    --secondary-color: #2ecc71;
+    --text-color: #f0f0f0;
+    --bg-color: linear-gradient(135deg, #1e1e2f, #111118);
+    --card-bg: #2a2a3d;
+    --shadow: 0 4px 12px rgba(0,0,0,0.7);
+}
+
+/* Light Mode Variables */
+body.light-mode {
+    --bg-color: linear-gradient(135deg, #f4f4f9, #e0e0f0);
+    --card-bg: #fff;
+    --text-color: #333;
+    --shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Global Styles */
+body {
+    background: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    scroll-behavior: smooth;
+    transition: all 0.5s ease;
+}
+
+* {margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;}
+a {text-decoration:none; color:var(--primary-color);}
+
+/* Header and Navigation */
+header {
+    background-color: #1c1c2e;
+    padding:15px 5%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:sticky;
+    top:0;
+    z-index:1000;
+    box-shadow:0 4px 12px rgba(0,0,0,0.8);
+    transition: background-color 0.5s ease;
+}
+header.light-mode {background-color: #fff;}
+.logo {font-size:1.6rem; font-weight:700; color:var(--primary-color);}
+.navbar a {margin-left:25px; font-weight:500; transition:color 0.3s; color:var(--text-color);}
+.navbar a:hover {color:var(--primary-color);}
+.menu-toggle {font-size:1.5rem; cursor:pointer; display:none; color:var(--text-color);}
+.menu-toggle:hover {color:var(--primary-color);}
+
+/* Section Styling */
+section {
+    padding:80px 5%;
+    min-height:100vh;
+    background-color: rgba(40,40,60,0.85);
+    border-radius:15px;
+    margin-bottom:50px;
+    transition: all 0.5s ease;
+}
+section.light-mode {background-color: #f4f4f9;}
+
+h2 {
+    text-align:center;
+    margin-bottom:50px;
+    font-size:2.2rem;
+    color:var(--primary-color);
+    border-bottom:3px solid var(--secondary-color);
+    display:inline-block;
+    padding-bottom:8px;
+    margin-left:50%;
+    transform:translateX(-50%);
+}
+
+/* Buttons and Highlights */
+.btn-primary {background-color: var(--primary-color); color:#fff; padding:12px 25px; border-radius:50px; transition:0.3s; display:inline-block; font-weight:bold;}
+.btn-primary:hover {background-color:#2980b9; transform:translateY(-2px);}
+.highlight {background: linear-gradient(90deg, #3498db, #2ecc71); -webkit-background-clip:text; -webkit-text-fill-color:transparent; font-weight:bold;}
+
+/* Hero Section */
+.hero {display:flex; align-items:center; justify-content:space-between; gap:40px; text-align:left;}
+.hero-content h1 {font-size:3.5rem; margin-bottom:20px;}
+.hero-content p {color:var(--text-color);}
+.profile-pic {max-width:100%; width:300px; height:300px; object-fit:cover; border-radius:50%; transition: transform 0.6s ease-in-out;}
+.profile-pic:hover {transform: scale(1.03) rotate(2deg);}
+
+/* MODE TOGGLE BUTTON */
+#mode-toggle {
+    padding:10px 20px;
+    border:none;
+    border-radius:50px;
+    background-color:var(--secondary-color);
+    color:#fff;
+    font-weight:bold;
+    cursor:pointer;
+    transition: 0.3s;
+    margin-top:20px;
+}
+#mode-toggle:hover {transform:scale(1.05);}
+
+/* Skills Section */
+.skills-container {display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:30px;}
+.skill-card {background-color:var(--card-bg); padding:30px 20px; border-radius:12px; box-shadow:var(--shadow); text-align:center; transition:transform 0.5s, box-shadow 0.5s; border-left:5px solid var(--primary-color);}
+.skill-card:hover {transform:translateY(-15px) scale(1.02); box-shadow:0 15px 30px rgba(52,152,219,0.4);}
+.skill-icon {font-size:3.5rem; margin-bottom:15px; color:var(--primary-color);}
+.progress-bar {background-color:#444; border-radius:10px; height:25px; overflow:hidden; margin-top:15px;}
+.progress {height:100%; background-color:var(--secondary-color); color:white; text-align:right; padding-right:10px; line-height:25px; transition: width 1.5s ease-out; font-weight:bold;}
+
+/* Projects Section */
+.projects-container {display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:30px;}
+.project-card {background-color:var(--card-bg); border-radius:12px; box-shadow:var(--shadow); overflow:hidden; transition:transform 0.3s, box-shadow 0.3s; border:1px solid #444; display:flex; flex-direction:column;}
+.project-card:hover {transform:translateY(-8px); box-shadow:0 10px 20px rgba(0,0,0,0.6);}
+.project-card img {width:100%; height:250px; object-fit:contain; transition:transform 0.5s; background-color:#1e1e2f;}
+.project-card:hover img {transform:scale(1.05);}
+.project-info {padding:25px; flex-grow:1; display:flex; flex-direction:column; justify-content:space-between;}
+.project-links {display:flex; justify-content:flex-start; gap:15px; margin-top:15px;}
+.project-links a {display:flex; align-items:center; padding:8px 15px; border-radius:5px; font-weight:bold; color:white; transition:background-color 0.3s;}
+.project-links a i {font-size:1rem; margin-right:8px; transition:transform 0.3s;}
+.project-links a:hover i {transform:scale(1.1);}
+.btn-github {background-color:#444;}
+.btn-github:hover {background-color:#666;}
+.btn-live {background-color:var(--primary-color);}
+.btn-live:hover {background-color:#2980b9;}
+
+/* Social Links */
+.social-links {margin-top:25px; text-align:center;}
+.social-links a {font-size:3rem; margin:0 15px; transition:color 0.3s, transform 0.3s; display:inline-block; color:var(--text-color);}
+.social-links a:hover {transform:scale(1.1); color:var(--primary-color);}
+
+/* Contact Section */
+.contact-form {display:grid; gap:15px; padding-top:20px;}
+.contact-info {max-width:600px; margin:30px auto; background-color:var(--card-bg); padding:30px; border-radius:10px; box-shadow:var(--shadow); text-align:left;}
+.contact-info p {margin-bottom:15px;}
+.contact-note {text-align:center; margin-top:20px; font-size:1rem; color:#aaa;}
+.contact-form input, .contact-form textarea {width:100%; padding:10px; border:1px solid #555; border-radius:5px; background-color:#1c1c2e; color:#f0f0f0; box-sizing:border-box;}
+.contact-form button {width:100%; border:none; cursor:pointer;}
+
+/* Footer */
+footer {background-color:#111118; color:#ccc; padding:25px; text-align:center;}
+
+/* Media Queries for Responsiveness (Handles Hamburger Menu) */
+@media(max-width:992px){
+    .hero{flex-direction:column;text-align:center}
+    .hero-image{order:-1;margin-bottom:30px}
+    .hero-content h1{font-size:3rem}
+}
+
+@media(max-width:768px){
+    header{padding:15px 3%}
+    section{padding:60px 3%; min-height:auto}
+    /* Hides the regular navbar */
+    .navbar{
+        display:none; 
+        flex-direction:column; 
+        position:absolute; 
+        top:60px; 
+        left:0; 
+        width:100%; 
+        background-color:#1c1c2e; 
+        box-shadow:var(--shadow); 
+        padding:10px 0; 
+        text-align:center;
+    }
+    /* Shows the navbar when 'active' class is present */
+    .navbar.active{display:flex}
+    /* Shows the hamburger icon */
+    .menu-toggle{display:block}
+    .navbar a{margin:10px 0; padding:10px; border-bottom:1px solid #333}
+    .hero-content h1{font-size:2.2rem}
+    .project-links{flex-direction:column; gap:10px}
+    .project-links a{justify-content:center}
+    .skills-container{gap:20px}
+}
+
+@media(max-width:480px){
+    .hero-content h1{font-size:2rem}
+    .profile-pic{width:200px;height:200px}
+    .contact-info{padding:20px}
+    .skills-container,.projects-container{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<header>
+<div class="logo">Máhî.dev</div>
+<nav class="navbar">
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+</nav>
+<div class="menu-toggle" id="menu-toggle"><i class="fas fa-bars"></i></div>
+</header>
+
+<main>
+<section id="home" class="hero">
+<div class="hero-content">
+    <h1>Hello! I am <span class="highlight">Máhîrä Îslâm (Prînçéss)</span></h1>
+    <p>Web Developer and Programming Enthusiast. Passionate about creating new and innovative solutions.</p>
+    <a href="#contact" class="btn-primary">Get in Touch</a>
+    <br>
+    <button id="mode-toggle">Toggle Dark/Light Mode</button>
+</div>
+<div class="hero-image">
+    <img src="profile.jpg" alt="Máhîrä Îslâm Profile Picture" class="profile-pic">
+</div>
+</section>
+
+<section id="about" class="about-section">
+<h2>About Me</h2>
+<div class="about-content">
+<p>I am Máhîrä Îslâm (Prînçéss), but you can call me Máhî. I am an enthusiastic web developer who loves technology and coding. I have proficiency in HTML, CSS, JS, Java, Python, and C++. My goal is to embrace new challenges and create innovative solutions.</p>
+<div class="social-links">
+    <a href="https://www.facebook.com/mahira.islam.815340" target="_blank"><i class="fab fa-facebook-f"></i></a>
+    <a href="https://github.com/MahiraIslam9874" target="_blank"><i class="fab fa-github"></i></a>
+    <a href="https://wa.me/8801940439874" target="_blank"><i class="fab fa-whatsapp"></i></a>
+</div>
+</div>
+</section>
+
+<section id="skills" class="skills-section">
+<h2>My Skills</h2>
+<div class="skills-container">
+<div class="skill-card">
+    <i class="fab fa-html5 skill-icon"></i>
+    <h3>HTML</h3>
+    <div class="progress-bar"><div class="progress" style="width:95%;">95%</div></div>
+</div>
+<div class="skill-card">
+    <i class="fab fa-css3-alt skill-icon"></i>
+    <h3>CSS</h3>
+    <div class="progress-bar"><div class="progress" style="width:90%;">90%</div></div>
+</div>
+<div class="skill-card">
+    <i class="fab fa-js-square skill-icon"></i>
+    <h3>JavaScript</h3>
+    <div class="progress-bar"><div class="progress" style="width:95%;">95%</div></div>
+</div>
+<div class="skill-card">
+    <i class="fab fa-java skill-icon"></i>
+    <h3>Java</h3>
+    <div class="progress-bar"><div class="progress" style="width:85%;">85%</div></div>
+</div>
+<div class="skill-card">
+    <i class="fab fa-python skill-icon"></i>
+    <h3>Python</h3>
+    <div class="progress-bar"><div class="progress" style="width:90%;">90%</div></div>
+</div>
+<div class="skill-card">
+    <i class="fas fa-code skill-icon"></i>
+    <h3>C++</h3>
+    <div class="progress-bar"><div class="progress" style="width:60%;">60%</div></div>
+</div>
+</div>
+</section>
+
+<section id="projects" class="projects-section">
+<h2>My Projects</h2>
+<div class="projects-container">
+<div class="project-card">
+    <img src="advanceticketfinder.jpg" alt="Advanced Ticket Finder">
+    <div class="project-info">
+        <h3>Advanced Ticket Finder</h3>
+        <p>A web application to find and book tickets easily.</p>
+        <div class="project-links">
+            <a href="https://github.com/MahiraIslam9874/Advanced-Ticket-Finder" class="btn-github" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+            <a href="https://mahiraislam9874.github.io/Advanced-Ticket-Finder/" class="btn-live" target="_blank"><i class="fas fa-external-link-alt"></i> Live</a>
+        </div>
+    </div>
+</div>
+<div class="project-card">
+    <img src="cgpacalculator.jpg" alt="CGPA Calculator">
+    <div class="project-info">
+        <h3>CGPA Calculator</h3>
+        <p>A simple tool for calculating academic CGPA/GPA.</p>
+        <div class="project-links">
+            <a href="https://github.com/MahiraIslam9874/CGPA-Calculator" class="btn-github" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+            <a href="https://mahiraislam9874.github.io/CGPA-Calculator/" class="btn-live" target="_blank"><i class="fas fa-external-link-alt"></i> Live</a>
+        </div>
+    </div>
+</div>
+</div>
+</section>
+
+<section id="contact" class="contact-section">
+<h2>Contact Me</h2>
+<div class="contact-info">
+<p><i class="fas fa-envelope"></i> onamika@gmail.com</p>
+<p><i class="fab fa-whatsapp"></i> WhatsApp: 01940000074</p>
+<form class="contact-form">
+<input type="text" placeholder="Your Name" required>
+<input type="email" placeholder="Your Email" required>
+<textarea placeholder="Your Message" rows="5" required></textarea>
+<button type="submit" class="btn-primary">Send Message</button>
+</form>
+<p class="contact-note">📧 You can also email or WhatsApp me directly!</p>
+</div>
+</section>
+
+</main>
+<footer>
+<p>&copy; 2025 Máhî.dev. All rights reserved.</p>
+</footer>
+
+<script>
+// Menu toggle functionality (for the hamburger icon)
+const menuToggle = document.getElementById('menu-toggle');
+const navbar = document.querySelector('.navbar');
+menuToggle.addEventListener('click', () => {
+    // This adds/removes the 'active' class to show/hide the menu on small screens
+    navbar.classList.toggle('active');
+});
+
+// Dark/Light mode toggle functionality
+const modeBtn = document.getElementById('mode-toggle');
+modeBtn.addEventListener('click', () => {
+    // Toggles the 'light-mode' class on the body to switch themes
+    document.body.classList.toggle('light-mode');
+    // Also toggle light-mode on the header so its background changes
+    document.querySelector('header').classList.toggle('light-mode');
+    // Toggle light-mode on all sections
+    document.querySelectorAll('section').forEach(section => {
+        section.classList.toggle('light-mode');
+    });
+});
+</script>
+
+</body>
+</html>
